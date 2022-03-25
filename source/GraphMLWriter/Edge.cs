@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using GraphMLWriter.Contracts;
 
 namespace GraphMLWriter
 {
-    public class Edge : GraphMlElement
+    public class Edge : GraphMlElement, IEdge
     {
         public string Source { get; set; }
         public string Target { get; set; }

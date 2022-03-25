@@ -21,9 +21,9 @@ namespace GraphMLWriter
             CollapseRedundantDependencies = true;
         }
 
-        public Graph BuildDependencyGraph(IEnumerable<Dependency> rootSolutions)
+        public GraphSerializer BuildDependencyGraph(IEnumerable<Dependency> rootSolutions)
         {
-            Graph g = new Graph();
+            GraphSerializer g = new GraphSerializer();
             _dependencies = new Dictionary<Dependency, Node>();
             _edges = new List<Edge>();
 
@@ -51,7 +51,7 @@ namespace GraphMLWriter
             return g;
         }
 
-        private void TraceDependencies(Dependency root, Graph g)
+        private void TraceDependencies(Dependency root, GraphSerializer g)
         {
             Node rootNode = _dependencies[root];
 

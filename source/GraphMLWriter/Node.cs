@@ -1,8 +1,9 @@
 ﻿using System.Drawing;
+using GraphMLWriter.Contracts;
 
 namespace GraphMLWriter
 {
-    public class Node : GraphMlElement
+    public class Node : GraphMlElement, INode
     {
         public string Text { get; set; }
         public double Height { get; set; }
@@ -34,19 +35,16 @@ namespace GraphMLWriter
         {
             Text = text;
         }
-
-
+        
         public void FitText()
         {
-            using (var bitmap = new Bitmap(1, 1))
-            using (Graphics g = Graphics.FromImage(bitmap))
-            {
-                Font f = new Font("Arial", 13f);
-                var size = g.MeasureString(Text, f);
+            using var bitmap = new Bitmap(1, 1);
+            using var g = Graphics.FromImage(bitmap);
+            var font = new Font("Arial", 15f, FontStyle.Bold);
+            var size = g.MeasureString(Text, font);
 
-                Width = size.Width + 4f;
-                Height = size.Height + 4f;
-            }
+            Width = size.Width + 4f;
+            Height = size.Height + 4f;
         }
     }
 }

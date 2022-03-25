@@ -1,4 +1,6 @@
-﻿namespace GraphMLWriter
+﻿using System.Drawing;
+
+namespace GraphMLWriter
 {
     public abstract class GraphMlElement
     {
@@ -8,5 +10,6 @@
         {
             Id = id;
         }
+
     }
 }
