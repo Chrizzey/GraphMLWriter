@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using GraphMLWriter.Contracts;
+using GraphMLWriter.Elements.Shapes;
 
-namespace GraphMLWriter
+namespace GraphMLWriter.Elements.Edges
 {
     public class Edge : GraphMlElement, IEdge
     {

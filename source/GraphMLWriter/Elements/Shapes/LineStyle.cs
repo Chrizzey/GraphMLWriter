@@ -1,4 +1,4 @@
-﻿namespace GraphMLWriter
+﻿namespace GraphMLWriter.Elements.Shapes
 {
     public enum LineStyle
     {

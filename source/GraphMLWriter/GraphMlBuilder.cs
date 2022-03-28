@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GraphMLWriter.Elements;
+using GraphMLWriter.Elements.Edges;
+using GraphMLWriter.Serializer;
 
 namespace GraphMLWriter
 {

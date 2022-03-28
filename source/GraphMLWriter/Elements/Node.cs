@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using GraphMLWriter.Contracts;
 
-namespace GraphMLWriter
+namespace GraphMLWriter.Elements
 {
     public class Node : GraphMlElement, INode
     {

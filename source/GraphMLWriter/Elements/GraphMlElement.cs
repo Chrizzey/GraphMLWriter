@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace GraphMLWriter
+﻿namespace GraphMLWriter.Elements
 {
     public abstract class GraphMlElement
     {

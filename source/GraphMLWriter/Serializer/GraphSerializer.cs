@@ -1,7 +1,10 @@
 ﻿using System.Drawing;
 using System.Xml.Linq;
+using GraphMLWriter.Elements;
+using GraphMLWriter.Elements.Edges;
+using GraphMLWriter.Serializer.Converter;
 
-namespace GraphMLWriter
+namespace GraphMLWriter.Serializer
 {
     public class GraphSerializer
     {

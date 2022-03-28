@@ -1,6 +1,7 @@
 ﻿using System;
+using GraphMLWriter.Elements.Shapes;
 
-namespace GraphMLWriter
+namespace GraphMLWriter.Serializer.Converter
 {
     public class LineStyleConverter
     {
