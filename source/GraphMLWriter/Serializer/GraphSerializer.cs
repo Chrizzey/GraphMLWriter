@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using GraphMLWriter.Contracts;
 using GraphMLWriter.Elements;
 using GraphMLWriter.Elements.Edges;
 using GraphMLWriter.Serializer.ElementSerializer;
@@ -10,6 +11,7 @@ namespace GraphMLWriter.Serializer
         private readonly XDocument _graph;
         private readonly EdgeSerializer _edgeSerializer;
         private readonly UmlNodeSerializer _umlNodeSerializer;
+        private readonly GenericNodeSerializer _nodeSerializer;
         private XNamespace _yNamespace;
         private XElement _graphNode;
         
@@ -17,6 +19,7 @@ namespace GraphMLWriter.Serializer
         {
             _graph = new XDocument();
             _edgeSerializer = new EdgeSerializer();
+            _nodeSerializer = new GenericNodeSerializer();
             _umlNodeSerializer = new UmlNodeSerializer();
             InitializeGraph();
         }
@@ -145,9 +148,11 @@ namespace GraphMLWriter.Serializer
               ));
         }
 
-        public virtual void AddNode(Node node)
+        public virtual void AddNode(INode node)
         {
-            var nodeElement = _umlNodeSerializer.SerializeNode(node);
+            var nodeElement =  node is GenericNode 
+                ? _nodeSerializer.SerializeNode(node) 
+                : _umlNodeSerializer.SerializeNode(node);
 
             _graphNode.Add(nodeElement);
         }

@@ -3,6 +3,7 @@ using GraphMLWriter.Elements;
 using GraphMLWriter.Elements.Edges;
 using GraphMLWriter.Elements.Shapes;
 using GraphMLWriter.Serializer;
+using GraphMLWriter.Serializer.ElementSerializer;
 
 namespace ConsoleApp1
 {
@@ -25,6 +26,7 @@ namespace ConsoleApp1
                 Width = 100
             };
 
+            
             var graph = new Graph();
             graph.AddNodes(n1, n2, n3);
 

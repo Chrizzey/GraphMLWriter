@@ -5,20 +5,14 @@ namespace GraphMLWriter.Serializer.ElementSerializer
 {
     public class UmlNodeSerializer : NodeSerializer
     {
-        public XElement SerializeNode(INode node)
+        public override XElement SerializeNode(INode node)
         {
             XElement umlClassNode = new XElement(YNamespace + "UMLClassNode");
             
             umlClassNode.Add(Geometry(node));
-
-            var fill = Fill(node);
-            umlClassNode.Add(fill);
-
-            var borderStyle = BorderStyle(node);
-            umlClassNode.Add(borderStyle);
-
-            var nodeLabel = NodeLabel(node);
-            umlClassNode.Add(nodeLabel);
+            umlClassNode.Add(Fill(node));
+            umlClassNode.Add(BorderStyle(node));
+            umlClassNode.Add(NodeLabel(node));
 
             XElement uml = new XElement(YNamespace + "UML",
               new XAttribute("clipContent", "true"),

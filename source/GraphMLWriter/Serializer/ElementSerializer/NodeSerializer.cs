@@ -3,7 +3,7 @@ using GraphMLWriter.Contracts;
 
 namespace GraphMLWriter.Serializer.ElementSerializer
 {
-    public abstract class NodeSerializer
+    public abstract class NodeSerializer : INodeSerializer
     {
         protected readonly XNamespace YNamespace;
 
@@ -11,6 +11,8 @@ namespace GraphMLWriter.Serializer.ElementSerializer
         {
             YNamespace = "http://www.yworks.com/xml/graphml";
         }
+
+        public abstract XElement SerializeNode(INode node);
 
         protected virtual XElement Geometry(INode node)
         {
