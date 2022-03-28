@@ -9,7 +9,7 @@ namespace GraphMLWriter.Serializer
     {
         private readonly XDocument _graph;
         private readonly EdgeSerializer _edgeSerializer;
-        private readonly NodeSerializer _nodeSerializer;
+        private readonly UmlNodeSerializer _umlNodeSerializer;
         private XNamespace _yNamespace;
         private XElement _graphNode;
         
@@ -17,7 +17,7 @@ namespace GraphMLWriter.Serializer
         {
             _graph = new XDocument();
             _edgeSerializer = new EdgeSerializer();
-            _nodeSerializer = new NodeSerializer();
+            _umlNodeSerializer = new UmlNodeSerializer();
             InitializeGraph();
         }
 
@@ -147,7 +147,7 @@ namespace GraphMLWriter.Serializer
 
         public virtual void AddNode(Node node)
         {
-            var nodeElement = _nodeSerializer.SerializeNode(node);
+            var nodeElement = _umlNodeSerializer.SerializeNode(node);
 
             _graphNode.Add(nodeElement);
         }
