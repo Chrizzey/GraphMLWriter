@@ -9,8 +9,13 @@ namespace GraphMLWriter
         private XNamespace _yNamespace;
         private XElement _graphNode;
 
+        private readonly EdgeArrowConverter _edgeArrowConverter;
+        private readonly LineStyleConverter _lineStyleConverter;
+
         public GraphSerializer()
         {
+            _edgeArrowConverter = new EdgeArrowConverter();
+            _lineStyleConverter = new LineStyleConverter();
             _graph = new XDocument();
             InitializeGraph();
         }
@@ -256,14 +261,14 @@ namespace GraphMLWriter
             polyLine.Add(path);
 
             XElement lineStyle = new XElement(_yNamespace + "LineStyle",
-              new XAttribute("color", "#000000"),
-              new XAttribute("type", "line"),
-              new XAttribute("width", "1.0"));
+              new XAttribute("color", edge.LineProperties.Color),
+              new XAttribute("type", _lineStyleConverter.ConvertLineStyle(edge.LineProperties.LineStyle)),
+              new XAttribute("width", edge.LineProperties.Width));
             polyLine.Add(lineStyle);
 
             XElement arrows = new XElement(_yNamespace + "Arrows",
-              new XAttribute("source", "none"),
-              new XAttribute("target", "standard"));
+              new XAttribute("source", _edgeArrowConverter.ConvertArrow(edge.SourceArrow)),
+              new XAttribute("target", _edgeArrowConverter.ConvertArrow(edge.TargetArrow)));
             polyLine.Add(arrows);
 
             XElement bendStyle = new XElement(_yNamespace + "BendStyle",

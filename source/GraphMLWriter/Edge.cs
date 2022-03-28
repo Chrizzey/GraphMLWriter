@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using GraphMLWriter.Contracts;
 
@@ -13,8 +14,15 @@ namespace GraphMLWriter
         public double Tx { get; set; }
         public double Ty { get; set; }
 
-        public List<Point> Points { get; protected set; }
-        
+        public EdgeArrow SourceArrow { get; set; } = EdgeArrow.None;
+
+        public EdgeArrow TargetArrow { get; set; } = EdgeArrow.Standard;
+
+        public LineProperties LineProperties { get; set; } = new LineProperties();
+
+            public List<Point> Points
+        { get; protected set; }
+
         public Edge(int edgeNumber, Node source, Node target)
             : this(edgeNumber, source.Id, target.Id)
         {

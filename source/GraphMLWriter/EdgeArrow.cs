@@ -1,0 +1,30 @@
+﻿namespace GraphMLWriter
+{
+    public enum EdgeArrow
+    {
+        None,
+        Standard,
+        Delta,
+        WhiteDelta,
+        Diamond,
+        WhiteDiamond,
+        Short,
+        Plain,
+        Concave,
+        Convex,
+        Circle,
+        TransparentCircle,
+        WhiteCircle,
+        Dash,
+        SkewedDash,
+        TShape,
+        CrowsFootOneMandatory,
+        CrowsFootManyMandatory,
+        CrowsFootOneOptional,
+        CrowsFootManyOptional,
+        CrowsFootOne,
+        CrowsFootMany,
+        CrowsFootOptional,
+        Cross
+    }
+}
