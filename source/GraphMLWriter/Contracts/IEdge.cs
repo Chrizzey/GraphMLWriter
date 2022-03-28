@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using GraphMLWriter.Elements.Shapes;
 
 namespace GraphMLWriter.Contracts
 {
@@ -11,6 +12,12 @@ namespace GraphMLWriter.Contracts
 
         string Target { get; set; }
 
-        List<Point> Points { get; }
+        public List<Point> Points { get; }
+
+        EdgeArrow SourceArrow { get; set; }
+
+        EdgeArrow TargetArrow { get; set; }
+
+        LineProperties LineProperties { get; set; }
     }
 }

@@ -3,23 +3,21 @@ using System.Xml.Linq;
 using GraphMLWriter.Elements;
 using GraphMLWriter.Elements.Edges;
 using GraphMLWriter.Serializer.Converter;
+using GraphMLWriter.Serializer.ElementSerializer;
 
 namespace GraphMLWriter.Serializer
 {
     public class GraphSerializer
     {
         private readonly XDocument _graph;
+        private readonly EdgeSerializer _edgeSerializer;
         private XNamespace _yNamespace;
         private XElement _graphNode;
-
-        private readonly EdgeArrowConverter _edgeArrowConverter;
-        private readonly LineStyleConverter _lineStyleConverter;
-
+        
         public GraphSerializer()
         {
-            _edgeArrowConverter = new EdgeArrowConverter();
-            _lineStyleConverter = new LineStyleConverter();
             _graph = new XDocument();
+            _edgeSerializer = new EdgeSerializer();
             InitializeGraph();
         }
 
@@ -233,52 +231,8 @@ namespace GraphMLWriter.Serializer
 
         public virtual void AddEdge(Edge edge)
         {
-            XElement edgeElement = new XElement("edge",
-              new XAttribute("id", edge.Id),
-              new XAttribute("source", edge.Source),
-              new XAttribute("target", edge.Target),
+            var edgeElement = _edgeSerializer.AddEdge(edge);
 
-              new XElement("data", new XAttribute("key", "d8")),
-              new XElement("data", new XAttribute("key", "d9"))
-              );
-
-            XElement polyLine = new XElement(_yNamespace + "PolyLineEdge");
-
-            XElement path = new XElement(_yNamespace + "Path",
-              new XAttribute("sx", edge.Sx.ToString("en-us")),
-              new XAttribute("sy", edge.Sy.ToString("en-us")),
-              new XAttribute("tx", edge.Tx.ToString("en-us")),
-              new XAttribute("ty", edge.Ty.ToString("en-us")));
-
-            foreach (Point p in edge.Points)
-            {
-                XElement point = new XElement(_yNamespace + "Point",
-                  new XAttribute("x", p.X),
-                  new XAttribute("y", p.Y)
-                  );
-                path.Add(point);
-            }
-
-            polyLine.Add(path);
-
-            XElement lineStyle = new XElement(_yNamespace + "LineStyle",
-              new XAttribute("color", edge.LineProperties.Color),
-              new XAttribute("type", _lineStyleConverter.ConvertLineStyle(edge.LineProperties.LineStyle)),
-              new XAttribute("width", edge.LineProperties.Width));
-            polyLine.Add(lineStyle);
-
-            XElement arrows = new XElement(_yNamespace + "Arrows",
-              new XAttribute("source", _edgeArrowConverter.ConvertArrow(edge.SourceArrow)),
-              new XAttribute("target", _edgeArrowConverter.ConvertArrow(edge.TargetArrow)));
-            polyLine.Add(arrows);
-
-            XElement bendStyle = new XElement(_yNamespace + "BendStyle",
-              new XAttribute("smoothed", "false"));
-            polyLine.Add(bendStyle);
-
-            XElement d10 = new XElement("data", new XAttribute("key", "d10"));
-            d10.Add(polyLine);
-            edgeElement.Add(d10);
             _graphNode.Add(edgeElement);
         }
     }

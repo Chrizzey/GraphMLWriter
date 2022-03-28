@@ -7,5 +7,7 @@
         public double Width { get; set; } = 1d;
 
         public LineStyle LineStyle { get; set; } = LineStyle.Line;
+
+        public bool SmoothEdges { get; set; } = false;
     }
 }
