@@ -30,11 +30,9 @@ namespace GraphMLWriter.Serializer
 
         public string GetXml()
         {
-            using (var reader = GetDocument().CreateReader())
-            {
-                reader.MoveToContent();
-                return reader.ReadOuterXml();
-            }
+            using var reader = GetDocument().CreateReader();
+            reader.MoveToContent();
+            return reader.ReadOuterXml();
         }
 
         private void InitializeGraph()
@@ -247,10 +245,10 @@ namespace GraphMLWriter.Serializer
             XElement polyLine = new XElement(_yNamespace + "PolyLineEdge");
 
             XElement path = new XElement(_yNamespace + "Path",
-              new XAttribute("sx", edge.Sx.ToString()),
-              new XAttribute("sy", edge.Sy.ToString()),
-              new XAttribute("tx", edge.Tx.ToString()),
-              new XAttribute("ty", edge.Ty.ToString()));
+              new XAttribute("sx", edge.Sx.ToString("en-us")),
+              new XAttribute("sy", edge.Sy.ToString("en-us")),
+              new XAttribute("tx", edge.Tx.ToString("en-us")),
+              new XAttribute("ty", edge.Ty.ToString("en-us")));
 
             foreach (Point p in edge.Points)
             {
