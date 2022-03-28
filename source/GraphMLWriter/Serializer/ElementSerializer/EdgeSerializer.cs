@@ -20,7 +20,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             _yNamespace = "http://www.yworks.com/xml/graphml";
         }
 
-        public XElement AddEdge(IEdge edge)
+        public XElement SerializeEdge(IEdge edge)
         {
             var edgeElement = new XElement("edge",
               new XAttribute("id", edge.Id),

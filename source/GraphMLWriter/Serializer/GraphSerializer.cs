@@ -1,8 +1,6 @@
-﻿using System.Drawing;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using GraphMLWriter.Elements;
 using GraphMLWriter.Elements.Edges;
-using GraphMLWriter.Serializer.Converter;
 using GraphMLWriter.Serializer.ElementSerializer;
 
 namespace GraphMLWriter.Serializer
@@ -11,6 +9,7 @@ namespace GraphMLWriter.Serializer
     {
         private readonly XDocument _graph;
         private readonly EdgeSerializer _edgeSerializer;
+        private readonly NodeSerializer _nodeSerializer;
         private XNamespace _yNamespace;
         private XElement _graphNode;
         
@@ -18,21 +17,16 @@ namespace GraphMLWriter.Serializer
         {
             _graph = new XDocument();
             _edgeSerializer = new EdgeSerializer();
+            _nodeSerializer = new NodeSerializer();
             InitializeGraph();
         }
 
-        public virtual XDocument GetDocument()
+        public void Serialize(Graph graph, string fileName)
         {
-            return _graph;
+            AddGraph(graph);
+            GetDocument().Save(fileName);
         }
-
-        public string GetXml()
-        {
-            using var reader = GetDocument().CreateReader();
-            reader.MoveToContent();
-            return reader.ReadOuterXml();
-        }
-
+        
         private void InitializeGraph()
         {
             _yNamespace = "http://www.yworks.com/xml/graphml";
@@ -65,7 +59,7 @@ namespace GraphMLWriter.Serializer
             _graph.Add(root);
         }
 
-        public void AddGraph(Graph graph)
+        private void AddGraph(Graph graph)
         {
             foreach (var node in graph.AllNodes)
             {
@@ -77,6 +71,12 @@ namespace GraphMLWriter.Serializer
                 AddEdge(edge);
             }
         }
+
+        private XDocument GetDocument()
+        {
+            return _graph;
+        }
+
 
         private static void AddKeysToRoot(XContainer root)
         {
@@ -147,79 +147,7 @@ namespace GraphMLWriter.Serializer
 
         public virtual void AddNode(Node node)
         {
-            XElement umlClassNode = new XElement(_yNamespace + "UMLClassNode");
-            XElement geometry = new XElement(_yNamespace + "Geometry",
-              new XAttribute("height", node.Height),
-              new XAttribute("width", node.Width),
-              new XAttribute("x", node.X),
-              new XAttribute("y", node.Y));
-            umlClassNode.Add(geometry);
-
-            XElement fill = new XElement(_yNamespace + "Fill",
-              new XAttribute("color", node.Color),
-              new XAttribute("transparent", "false"));
-            umlClassNode.Add(fill);
-
-            XElement borderStyle = new XElement(_yNamespace + "BorderStyle",
-              new XAttribute("color", node.BorderColor),
-              new XAttribute("type", node.BorderStyle),
-              new XAttribute("width", node.BorderWidth));
-            umlClassNode.Add(borderStyle);
-
-            XElement nodeLabel = new XElement(_yNamespace + "NodeLabel",
-              new XAttribute("alignment", "center"),
-                 new XAttribute("autoSizePolicy", "content"),
-                 new XAttribute("fontFamily", "Dialog"),
-                 new XAttribute("fontSize", "13"),
-                 new XAttribute("fontStyle", "bold"),
-                 new XAttribute("hasBackgroundColor", "false"),
-                 new XAttribute("hasLineColor", "false"),
-                 new XAttribute("height", "19.92626953125"),
-                 new XAttribute("modelName", "custom"),
-                 new XAttribute("textColor", "#000000"),
-                 new XAttribute("visible", "true"),
-                 new XAttribute("width", "38.68994140625"),
-                 new XAttribute("x", "30.655029296875"),
-                 new XAttribute("y", "3.0"));
-            nodeLabel.Add(node.Text);
-            XElement labelModel = new XElement(_yNamespace + "LabelModel",
-              new XElement(_yNamespace + "SmartNodeLabelModel",
-                new XAttribute("distance", "4.0")
-                )
-              );
-            nodeLabel.Add(labelModel);
-            XElement modelParameter = new XElement(_yNamespace + "ModelParameter",
-              new XElement(_yNamespace + "SmartNodeLabelModelParameter",
-              new XAttribute("labelRatioX", "0.0"),
-              new XAttribute("labelRatioY", "0.0"),
-              new XAttribute("nodeRatioX", "0.0"),
-              new XAttribute("nodeRatioY", "-0.03703090122767855"),
-              new XAttribute("offsetX", "0.0"),
-              new XAttribute("offsetY", "0.0"),
-              new XAttribute("upX", "0.0"),
-              new XAttribute("upY", "-1.0"))
-              );
-            nodeLabel.Add(modelParameter);
-            umlClassNode.Add(nodeLabel);
-
-            XElement uml = new XElement(_yNamespace + "UML",
-              new XAttribute("clipContent", "true"),
-              new XAttribute("constraint", ""),
-              new XAttribute("omitDetails", "false"),
-              new XAttribute("stereotype", ""),
-              new XAttribute("use3DEffect", "true"),
-              new XElement(_yNamespace + "AttributeLabel"),
-              new XElement(_yNamespace + "MethodLabel")
-              );
-            umlClassNode.Add(uml);
-
-            XElement data = new XElement("data",
-              new XAttribute("key", "d6"));
-            data.Add(umlClassNode);
-
-            XElement nodeElement = new XElement("node",
-              new XAttribute("id", node.Id));
-            nodeElement.Add(data);
+            var nodeElement = _nodeSerializer.SerializeNode(node);
 
             _graphNode.Add(nodeElement);
         }
@@ -231,7 +159,7 @@ namespace GraphMLWriter.Serializer
 
         public virtual void AddEdge(Edge edge)
         {
-            var edgeElement = _edgeSerializer.AddEdge(edge);
+            var edgeElement = _edgeSerializer.SerializeEdge(edge);
 
             _graphNode.Add(edgeElement);
         }
