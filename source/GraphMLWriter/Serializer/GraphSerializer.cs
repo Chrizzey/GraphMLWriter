@@ -10,17 +10,15 @@ namespace GraphMLWriter.Serializer
     {
         private readonly XDocument _graph;
         private readonly EdgeSerializer _edgeSerializer;
-        private readonly UmlNodeSerializer _umlNodeSerializer;
-        private readonly GenericNodeSerializer _nodeSerializer;
+        private readonly NodeSerializerProvider _nodeSerializerProvider;
         private XNamespace _yNamespace;
         private XElement _graphNode;
-        
+
         public GraphSerializer()
         {
             _graph = new XDocument();
             _edgeSerializer = new EdgeSerializer();
-            _nodeSerializer = new GenericNodeSerializer();
-            _umlNodeSerializer = new UmlNodeSerializer();
+            _nodeSerializerProvider = new NodeSerializerProvider(new GenericNodeSerializer(), new UmlNodeSerializer());
             InitializeGraph();
         }
 
@@ -29,7 +27,7 @@ namespace GraphMLWriter.Serializer
             AddGraph(graph);
             GetDocument().Save(fileName);
         }
-        
+
         private void InitializeGraph()
         {
             _yNamespace = "http://www.yworks.com/xml/graphml";
@@ -79,7 +77,6 @@ namespace GraphMLWriter.Serializer
         {
             return _graph;
         }
-
 
         private static void AddKeysToRoot(XContainer root)
         {
@@ -150,10 +147,8 @@ namespace GraphMLWriter.Serializer
 
         public virtual void AddNode(INode node)
         {
-            var nodeElement =  node is GenericNode 
-                ? _nodeSerializer.SerializeNode(node) 
-                : _umlNodeSerializer.SerializeNode(node);
-
+            var serializer = _nodeSerializerProvider.GetSerializerForNode(node);
+            var nodeElement = serializer.SerializeNode(node);
             _graphNode.Add(nodeElement);
         }
 
