@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using GraphMLWriter.Contracts;
 using GraphMLWriter.Elements.Edges;
-using GraphMLWriter.Elements.Nodes;
 
 namespace GraphMLWriter.Elements
 {

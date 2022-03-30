@@ -1,7 +1,6 @@
 ﻿using System.Xml.Linq;
-using GraphMLWriter.Contracts;
 
-namespace GraphMLWriter.Serializer.ElementSerializer
+namespace GraphMLWriter.Contracts
 {
     public interface INodeSerializer
     {

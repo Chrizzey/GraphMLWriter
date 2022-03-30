@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using GraphMLWriter.Elements.Nodes;
+using GraphMLWriter.Elements.Shapes;
 
 namespace GraphMLWriter.Elements.NodeFactories
 {

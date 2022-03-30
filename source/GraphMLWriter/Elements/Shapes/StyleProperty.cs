@@ -1,4 +1,4 @@
-﻿namespace GraphMLWriter.Elements.NodeFactories
+﻿namespace GraphMLWriter.Elements.Shapes
 {
     public class StyleProperty
     {

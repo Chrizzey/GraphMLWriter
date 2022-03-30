@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GraphMLWriter.Elements.NodeFactories;
+using GraphMLWriter.Elements.Shapes;
 
 namespace GraphMLWriter.Elements.Nodes
 {
