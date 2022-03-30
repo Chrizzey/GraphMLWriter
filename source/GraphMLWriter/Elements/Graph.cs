@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using GraphMLWriter.Contracts;
 using GraphMLWriter.Elements.Edges;
 using GraphMLWriter.Elements.Nodes;
 
@@ -9,25 +10,25 @@ namespace GraphMLWriter.Elements
 {
     public class Graph
     {
-        private readonly List<Node> _nodes;
+        private readonly List<INode> _nodes;
         private readonly List<Edge> _edges;
 
         public Graph()
         {
-            _nodes = new List<Node>();
+            _nodes = new List<INode>();
             _edges = new List<Edge>();
         }
 
-        public IReadOnlyCollection<Node> AllNodes => new ReadOnlyCollection<Node>(_nodes);
+        public IReadOnlyCollection<INode> AllNodes => new ReadOnlyCollection<INode>(_nodes);
 
         public IReadOnlyCollection<Edge> AllEdges => new ReadOnlyCollection<Edge>(_edges);
 
-        public void AddNodes(params Node[] nodes)
+        public void AddNodes(params INode[] nodes)
         {
-            AddNodes((IEnumerable<Node>)nodes);
+            AddNodes((IEnumerable<INode>)nodes);
         }
 
-        public void AddNodes(IEnumerable<Node> nodes)
+        public void AddNodes(IEnumerable<INode> nodes)
         {
             foreach (var node in nodes)
             {
@@ -48,7 +49,7 @@ namespace GraphMLWriter.Elements
             }
         }
 
-        public void AddNode(Node node)
+        public void AddNode(INode node)
         {
             if (NodeExists(node))
                 throw new DuplicateNodeException();
@@ -56,7 +57,7 @@ namespace GraphMLWriter.Elements
             _nodes.Add(node);
         }
 
-        public bool NodeExists(Node node)
+        public bool NodeExists(INode node)
         {
             return _nodes.Any(x => x.Id == node.Id);
         }

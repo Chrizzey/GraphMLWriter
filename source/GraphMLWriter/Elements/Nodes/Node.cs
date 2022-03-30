@@ -35,6 +35,11 @@ namespace GraphMLWriter.Elements.Nodes
         {
             Text = text;
         }
+
+        public void SetColor(Color color)
+        {
+            Color = $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+        }
         
         public void FitText()
         {

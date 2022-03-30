@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Drawing;
+using System.Linq;
+using System.Reflection;
+using GraphMLWriter.Contracts;
 using GraphMLWriter.Elements;
 using GraphMLWriter.Elements.Edges;
+using GraphMLWriter.Elements.NodeFactories;
 using GraphMLWriter.Elements.Nodes;
 using GraphMLWriter.Elements.Shapes;
 using GraphMLWriter.Serializer;
@@ -17,19 +22,59 @@ namespace ConsoleApp1
                 Y = 80,
                 Width = 100
             };
+            n1.SetColor(Color.DarkRed);
             var n2 = new Node("Node B", 1)
             {
                 Width = 100
             };
+            n2.SetColor(Color.Blue);
             var n3 = new Node("Node C", 2)
             {
                 Y = 160,
                 Width = 100
             };
-
+            n3.SetColor(Color.Green);
             
             var graph = new Graph();
             graph.AddNodes(n1, n2, n3);
+
+            var nodeNumber = 3;
+            var y = 200;
+
+            var nodes = typeof(FlowChartNodeFactory)
+                .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                .Where(x => x.GetParameters().Length == 2
+                            && x.GetParameters()[0].ParameterType == typeof(int)
+                            && x.GetParameters()[1].ParameterType == typeof(string))
+                .Select(x =>
+                {
+                    var node = (INode) x.Invoke(new FlowChartNodeFactory(), new object[] {nodeNumber++, x.Name});
+                    if (node is null)
+                        throw new NotSupportedException(x.Name);
+                    node.Y = y;
+                    if (nodeNumber % 3 == 1)
+                        y += 100;
+
+                    switch (nodeNumber % 3)
+                    {
+                        case 0:
+                            node.X = 100;
+                            node.SetColor(Color.Orange);
+                            break;
+                        case 1:
+                            node.X = 250;
+                            node.SetColor(Color.Aqua);
+                            break;
+                        case 2:
+                            node.X = 400;
+                            node.SetColor(Color.Sienna);
+                            break;
+                    }
+
+                    return node;
+                });
+
+            graph.AddNodes(nodes);
 
             graph.AddEdge(new Edge(0, n1, n2)
             {
