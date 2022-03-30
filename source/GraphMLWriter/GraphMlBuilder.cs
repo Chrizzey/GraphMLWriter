@@ -2,6 +2,7 @@
 using System.Linq;
 using GraphMLWriter.Elements;
 using GraphMLWriter.Elements.Edges;
+using GraphMLWriter.Elements.Nodes;
 using GraphMLWriter.Serializer;
 
 namespace GraphMLWriter

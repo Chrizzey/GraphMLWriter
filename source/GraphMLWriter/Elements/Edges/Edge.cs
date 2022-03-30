@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using GraphMLWriter.Contracts;
+using GraphMLWriter.Elements.Nodes;
 using GraphMLWriter.Elements.Shapes;
 
 namespace GraphMLWriter.Elements.Edges

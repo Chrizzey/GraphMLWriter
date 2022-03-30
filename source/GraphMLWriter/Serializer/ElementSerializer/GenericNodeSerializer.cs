@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using GraphMLWriter.Contracts;
+using GraphMLWriter.Elements.Nodes;
 
 namespace GraphMLWriter.Serializer.ElementSerializer
 {

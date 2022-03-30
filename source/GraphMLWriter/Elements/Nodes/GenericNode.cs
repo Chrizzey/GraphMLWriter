@@ -1,6 +1,4 @@
-﻿using GraphMLWriter.Elements;
-
-namespace GraphMLWriter.Serializer.ElementSerializer
+﻿namespace GraphMLWriter.Elements.Nodes
 {
     public class GenericNode : Node
     {
@@ -14,7 +12,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
 
         public string Configuration { get; set; }
 
-        public static GenericNode Start1(int nodeNumber, string text = null)
+        public static GenericNode CreateStart1(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -23,7 +21,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
 
-        public static GenericNode Start2(int nodeNumber, string text = null)
+        public static GenericNode CreateStart2(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -32,7 +30,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
 
-        public static GenericNode Terminator(int nodeNumber, string text = null)
+        public static GenericNode CreateTerminator(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -41,7 +39,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
 
-        public static GenericNode Process(int nodeNumber, string text = null)
+        public static GenericNode CreateProcess(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -50,7 +48,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
 
-        public static GenericNode PredefinedProcess(int nodeNumber, string text = null)
+        public static GenericNode CreatePredefinedProcess(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -59,7 +57,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
 
-        public static GenericNode Decision(int nodeNumber, string text = null)
+        public static GenericNode CreateDecision(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -68,7 +66,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
 
-        public static GenericNode LoopLimit(int nodeNumber, string text = null)
+        public static GenericNode CreateLoopLimit(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -77,7 +75,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
 
-        public static GenericNode LoopLimitEnd(int nodeNumber, string text = null)
+        public static GenericNode CreateLoopLimitEnd(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -86,7 +84,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
 
-        public static GenericNode Document(int nodeNumber, string text = null)
+        public static GenericNode CreateDocument(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -95,7 +93,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
 
-        public static GenericNode Data(int nodeNumber, string text = null)
+        public static GenericNode CreateData(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -104,7 +102,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
 
-        public static GenericNode DirectData(int nodeNumber, string text = null)
+        public static GenericNode CreateDirectData(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -113,7 +111,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
 
-        public static GenericNode StoredData(int nodeNumber, string text = null)
+        public static GenericNode CreateStoredData(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -122,7 +120,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode SequentialData(int nodeNumber, string text = null)
+        public static GenericNode CreateSequentialData(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -131,7 +129,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode Database(int nodeNumber, string text = null)
+        public static GenericNode CreateDatabase(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -140,7 +138,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode InternalStorage(int nodeNumber, string text = null)
+        public static GenericNode CreateInternalStorage(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -149,7 +147,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode ManualInput(int nodeNumber, string text = null)
+        public static GenericNode CreateManualInput(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -158,7 +156,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode Card(int nodeNumber, string text = null)
+        public static GenericNode CreateCard(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -167,7 +165,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode PaperType(int nodeNumber, string text = null)
+        public static GenericNode CreatePaperType(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -176,7 +174,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode Cloud(int nodeNumber, string text = null)
+        public static GenericNode CreateCloud(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -185,7 +183,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode Delay(int nodeNumber, string text = null)
+        public static GenericNode CreateDelay(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -194,7 +192,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode Display(int nodeNumber, string text = null)
+        public static GenericNode CreateDisplay(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -203,7 +201,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode ManualOperation(int nodeNumber, string text = null)
+        public static GenericNode CreateManualOperation(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -212,7 +210,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode Preparation(int nodeNumber, string text = null)
+        public static GenericNode CreatePreparation(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -221,7 +219,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode OnPageReference(int nodeNumber, string text = null)
+        public static GenericNode CreateOnPageReference(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -230,7 +228,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode OffPageReference(int nodeNumber, string text = null)
+        public static GenericNode CreateOffPageReference(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -239,7 +237,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode UserMessage(int nodeNumber, string text = null)
+        public static GenericNode CreateUserMessage(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -248,7 +246,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode NetworkMessage(int nodeNumber, string text = null)
+        public static GenericNode CreateNetworkMessage(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
@@ -257,7 +255,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             };
         }
         
-        public static GenericNode Annotation(int nodeNumber, string text = null)
+        public static GenericNode CreateAnnotation(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {

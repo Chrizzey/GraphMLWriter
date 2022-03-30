@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using GraphMLWriter.Elements.Edges;
+using GraphMLWriter.Elements.Nodes;
 
 namespace GraphMLWriter.Elements
 {

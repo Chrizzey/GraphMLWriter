@@ -1,4 +1,5 @@
 ﻿using GraphMLWriter.Contracts;
+using GraphMLWriter.Elements.Nodes;
 using GraphMLWriter.Serializer.ElementSerializer;
 
 namespace GraphMLWriter.Serializer

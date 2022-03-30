@@ -1,6 +1,7 @@
 ﻿using System;
 using GraphMLWriter.Elements;
 using GraphMLWriter.Elements.Edges;
+using GraphMLWriter.Elements.Nodes;
 using GraphMLWriter.Elements.Shapes;
 using GraphMLWriter.Serializer;
 using GraphMLWriter.Serializer.ElementSerializer;
