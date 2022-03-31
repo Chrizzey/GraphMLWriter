@@ -18,12 +18,8 @@ namespace GraphMLWriter.Elements.Nodes
 
         public string Color { get; set; }
 
-        public string BorderColor { get; set; }
-
-        public string BorderStyle { get; set; }
-
-        public double BorderWidth { get; set; }
-
+        public Border Border { get; set; }
+        
         public Node(int nodeNumber) 
             : base("n"+nodeNumber)
         {
@@ -33,9 +29,7 @@ namespace GraphMLWriter.Elements.Nodes
             Y = 0d;
 
             Color = "#CCCCCC";
-            BorderColor = "#000000";
-            BorderStyle = "line";
-            BorderWidth = 1d;
+            Border = new Border();
             NodeLabel = new NodeLabel();
         }
 
@@ -47,7 +41,7 @@ namespace GraphMLWriter.Elements.Nodes
 
         public void SetColor(Color color)
         {
-            Color = $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+            Color = color.ToHexCode();
         }
         
         public void FitText()

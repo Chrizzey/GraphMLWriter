@@ -1,5 +1,7 @@
 ﻿using System.Xml.Linq;
 using GraphMLWriter.Contracts;
+using GraphMLWriter.Elements.NodeFactories;
+using GraphMLWriter.Elements.Nodes;
 
 namespace GraphMLWriter.Serializer.ElementSerializer
 {
@@ -25,27 +27,33 @@ namespace GraphMLWriter.Serializer.ElementSerializer
 
         protected virtual XElement NodeLabel(INode node)
         {
+            return NodeLabel(node.NodeLabel, node.Text);
+        }
+
+        protected virtual XElement NodeLabel(INodeLabel label, string text)
+        {
             var nodeLabel = new XElement(YNamespace + "NodeLabel",
                 new XAttribute("alignment", "center"),
                 new XAttribute("autoSizePolicy", "content"),
-                new XAttribute("fontFamily", node.NodeLabel.FontFamily),
-                new XAttribute("fontSize", node.NodeLabel.FontSize),
-                new XAttribute("fontStyle", node.NodeLabel.FontStyle),
-                new XAttribute("hasBackgroundColor", node.NodeLabel.HasBackgroundColor),
-                new XAttribute("hasLineColor", node.NodeLabel.HasLineColor),
+                new XAttribute("fontFamily", label.FontFamily),
+                new XAttribute("fontSize", label.FontSize),
+                new XAttribute("fontStyle", label.FontStyle),
+                new XAttribute("hasBackgroundColor", label.HasBackgroundColor),
+                new XAttribute("hasLineColor", label.HasLineColor),
                 new XAttribute("height", "19.92626953125"),
                 new XAttribute("modelName", "custom"),
-                new XAttribute("textColor", node.NodeLabel.TextColor),
-                new XAttribute("visible", node.NodeLabel.IsVisible),
+                new XAttribute("textColor", label.TextColor),
+                new XAttribute("visible", label.IsVisible),
                 new XAttribute("width", "38.68994140625"),
                 new XAttribute("x", "30.655029296875"),
                 new XAttribute("y", "3.0"));
-            nodeLabel.Add(node.Text);
+            nodeLabel.Add(text);
             var labelModel = new XElement(YNamespace + "LabelModel",
                 new XElement(YNamespace + "SmartNodeLabelModel",
                     new XAttribute("distance", "4.0")
                 )
             );
+
             nodeLabel.Add(labelModel);
             var modelParameter = new XElement(YNamespace + "ModelParameter",
                 new XElement(YNamespace + "SmartNodeLabelModelParameter",
@@ -64,10 +72,15 @@ namespace GraphMLWriter.Serializer.ElementSerializer
 
         protected virtual XElement BorderStyle(INode node)
         {
+            return BorderStyle(node.Border);
+        }
+
+        protected virtual XElement BorderStyle(Border border)
+        {
             var borderStyle = new XElement(YNamespace + "BorderStyle",
-                new XAttribute("color", node.BorderColor),
-                new XAttribute("type", node.BorderStyle),
-                new XAttribute("width", node.BorderWidth));
+                new XAttribute("color", border.Color),
+                new XAttribute("type", border.Style),
+                new XAttribute("width", border.Width));
             return borderStyle;
         }
 

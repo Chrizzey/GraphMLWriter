@@ -122,14 +122,17 @@ namespace GraphMLWriter.Elements.NodeFactories
             //    }
             //};
         }
-        
+
         public virtual GenericNode CreateInheritedAttribute(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)
             {
                 Configuration = "com.yworks.entityRelationship.attribute",
                 Width = 80,
-                BorderStyle = "dashed",
+                Border =
+                {
+                    Style = "dashed"
+                },
                 StyleProperties =
                 {
                     StyleProperty.BooleanProperty("y.view.ShadowNodePainter.SHADOW_PAINTING", true)

@@ -1,4 +1,6 @@
-﻿namespace GraphMLWriter.Contracts
+﻿using GraphMLWriter.Elements.Nodes;
+
+namespace GraphMLWriter.Contracts
 {
     public interface IShape
     {
@@ -7,8 +9,7 @@
         double X { get; set; }
         double Y { get; set; }
         string Color { get; set; }
-        string BorderColor { get; set; }
-        string BorderStyle { get; set; }
-        double BorderWidth { get; set; }
+
+        Border Border { get; set; }
     }
 }
