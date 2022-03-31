@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using GraphMLWriter.Contracts;
+using GraphMLWriter.Elements.NodeFactories;
 
 namespace GraphMLWriter.Elements.Nodes
 {
@@ -28,6 +29,7 @@ namespace GraphMLWriter.Elements.Nodes
             BorderColor = "#000000";
             BorderStyle = "line";
             BorderWidth = 1d;
+            NodeLabel = new NodeLabel();
         }
 
         public Node(string text, int nodeNumber) 
@@ -51,5 +53,7 @@ namespace GraphMLWriter.Elements.Nodes
             Width = size.Width + 4f;
             Height = size.Height + 4f;
         }
+
+        public INodeLabel NodeLabel { get; set; }
     }
 }

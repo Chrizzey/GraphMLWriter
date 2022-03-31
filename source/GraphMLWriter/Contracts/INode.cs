@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using GraphMLWriter.Elements.NodeFactories;
 
 namespace GraphMLWriter.Contracts
 {
@@ -7,7 +8,8 @@ namespace GraphMLWriter.Contracts
         string Id { get; }
 
         string Text { get; set; }
-        
+        INodeLabel NodeLabel { get; set; }
+
         void FitText();
 
         void SetColor(Color color);
