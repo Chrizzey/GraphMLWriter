@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml.Linq;
 using GraphMLWriter.Contracts;
 using GraphMLWriter.Elements.Nodes;
@@ -27,19 +28,37 @@ namespace GraphMLWriter.Serializer.ElementSerializer
             genericNode.Add(BorderStyle(node));
             genericNode.Add(NodeLabel(node));
 
-            XElement data = new XElement("data",
+            if(node.StyleProperties.Any())
+                genericNode.Add(StyleProperties(node));
+
+            var data = new XElement("data",
                 new XAttribute("key", "d6"));
             data.Add(genericNode);
 
-            XElement d5 = new XElement("data",
+            var d5 = new XElement("data",
                 new XAttribute("key", "d5"));
 
-            XElement nodeElement = new XElement("node",
+            var nodeElement = new XElement("node",
                 new XAttribute("id", node.Id));
             nodeElement.Add(data);
             nodeElement.Add(d5);
 
             return nodeElement;
+        }
+
+        private XElement StyleProperties(GenericNode node)
+        {
+            var styleProperties = new XElement(YNamespace + "StyleProperties");
+
+            foreach (var styleProperty in node.StyleProperties)
+            {
+                styleProperties.Add(new XElement(YNamespace + "Property",
+                    new XAttribute("class", styleProperty.ClassName),
+                    new XAttribute("name", styleProperty.Name),
+                    new XAttribute("value", styleProperty.Value)));
+            }
+
+            return styleProperties;
         }
     }
 }

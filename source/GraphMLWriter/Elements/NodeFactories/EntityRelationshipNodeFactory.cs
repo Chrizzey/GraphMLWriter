@@ -122,7 +122,7 @@ namespace GraphMLWriter.Elements.NodeFactories
             //    }
             //};
         }
-
+        
         public virtual GenericNode CreateInheritedAttribute(int nodeNumber, string text = null)
         {
             return new GenericNode(text, nodeNumber)

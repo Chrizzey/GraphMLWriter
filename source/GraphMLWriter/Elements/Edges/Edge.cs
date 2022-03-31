@@ -24,7 +24,7 @@ namespace GraphMLWriter.Elements.Edges
             public List<Point> Points
         { get; protected set; }
 
-        public Edge(int edgeNumber, Node source, Node target)
+        public Edge(int edgeNumber, INode source, INode target)
             : this(edgeNumber, source.Id, target.Id)
         {
         }

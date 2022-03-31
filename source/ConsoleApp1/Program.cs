@@ -76,6 +76,41 @@ namespace ConsoleApp1
 
             graph.AddNodes(nodes);
 
+            nodes = typeof(ShapeNodeFactory)
+                .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                .Where(x => x.GetParameters().Length == 2
+                            && x.GetParameters()[0].ParameterType == typeof(int)
+                            && x.GetParameters()[1].ParameterType == typeof(string))
+                .Select(x =>
+                {
+                    var node = (INode)x.Invoke(new ShapeNodeFactory(), new object[] { nodeNumber++, x.Name });
+                    if (node is null)
+                        throw new NotSupportedException(x.Name);
+                    node.Y = y;
+                    if (nodeNumber % 3 == 1)
+                        y += 100;
+
+                    switch (nodeNumber % 3)
+                    {
+                        case 0:
+                            node.X = 100;
+                            node.SetColor(Color.Chartreuse);
+                            break;
+                        case 1:
+                            node.X = 250;
+                            node.SetColor(Color.MediumTurquoise);
+                            break;
+                        case 2:
+                            node.X = 400;
+                            node.SetColor(Color.MediumPurple);
+                            break;
+                    }
+
+                    return node;
+                });
+
+            graph.AddNodes(nodes);
+
             graph.AddEdge(new Edge(0, n1, n2)
             {
                 TargetArrow = EdgeArrow.WhiteDelta,
