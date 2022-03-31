@@ -25,7 +25,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
 
         protected virtual XElement NodeLabel(INode node)
         {
-            XElement nodeLabel = new XElement(YNamespace + "NodeLabel",
+            var nodeLabel = new XElement(YNamespace + "NodeLabel",
                 new XAttribute("alignment", "center"),
                 new XAttribute("autoSizePolicy", "content"),
                 new XAttribute("fontFamily", node.NodeLabel.FontFamily),
@@ -41,13 +41,13 @@ namespace GraphMLWriter.Serializer.ElementSerializer
                 new XAttribute("x", "30.655029296875"),
                 new XAttribute("y", "3.0"));
             nodeLabel.Add(node.Text);
-            XElement labelModel = new XElement(YNamespace + "LabelModel",
+            var labelModel = new XElement(YNamespace + "LabelModel",
                 new XElement(YNamespace + "SmartNodeLabelModel",
                     new XAttribute("distance", "4.0")
                 )
             );
             nodeLabel.Add(labelModel);
-            XElement modelParameter = new XElement(YNamespace + "ModelParameter",
+            var modelParameter = new XElement(YNamespace + "ModelParameter",
                 new XElement(YNamespace + "SmartNodeLabelModelParameter",
                     new XAttribute("labelRatioX", "0.0"),
                     new XAttribute("labelRatioY", "0.0"),
@@ -64,7 +64,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
 
         protected virtual XElement BorderStyle(INode node)
         {
-            XElement borderStyle = new XElement(YNamespace + "BorderStyle",
+            var borderStyle = new XElement(YNamespace + "BorderStyle",
                 new XAttribute("color", node.BorderColor),
                 new XAttribute("type", node.BorderStyle),
                 new XAttribute("width", node.BorderWidth));
@@ -73,7 +73,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
 
         protected virtual XElement Fill(INode node)
         {
-            XElement fill = new XElement(YNamespace + "Fill",
+            var fill = new XElement(YNamespace + "Fill",
                 new XAttribute("color", node.Color),
                 new XAttribute("transparent", "false"));
             return fill;
