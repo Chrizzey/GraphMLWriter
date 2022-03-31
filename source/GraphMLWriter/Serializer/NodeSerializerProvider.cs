@@ -8,21 +8,23 @@ namespace GraphMLWriter.Serializer
     {
         private readonly GenericNodeSerializer _genericNodeSerializer;
         private readonly UmlNodeSerializer _umlNodeSerializer;
+        private readonly ShapeNodeSerializer _shapeNodeSerializer;
 
-        public NodeSerializerProvider(GenericNodeSerializer genericNodeSerializer, UmlNodeSerializer umlNodeSerializer)
+        public NodeSerializerProvider(GenericNodeSerializer genericNodeSerializer, UmlNodeSerializer umlNodeSerializer, ShapeNodeSerializer shapeNodeSerializer)
         {
             _genericNodeSerializer = genericNodeSerializer;
             _umlNodeSerializer = umlNodeSerializer;
+            _shapeNodeSerializer = shapeNodeSerializer;
         }
         
         public INodeSerializer GetSerializerForNode(INode node)
         {
-            if (node is GenericNode)
+            return node switch
             {
-                return _genericNodeSerializer;
-            }
-
-            return _umlNodeSerializer;
+                GenericNode _ => _genericNodeSerializer,
+                ShapeNode _ => _shapeNodeSerializer,
+                _ => _umlNodeSerializer
+            };
         }
     }
 }
