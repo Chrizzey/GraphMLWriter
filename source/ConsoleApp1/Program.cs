@@ -130,27 +130,13 @@ namespace ConsoleApp1
             var nodeCount = graph.AllNodes.Count;
             var factory = new EntityRelationshipNodeFactory();
 
-            var employee = factory.CreateSmallEntity(nodeCount++, "Employee");
-            employee.X = 500;
-            employee.Y = 0;
+            var employee = factory.CreateSmallEntity(nodeCount++, "Employee").SetLocation(500,0);
+            var idAttribute = factory.CreatePrimaryKeyAttribute(nodeCount++, "ID").SetLocation(450,50);
+            var nameAttribute = factory.CreateAttribute(nodeCount++, "Name").SetLocation(550,50);
 
-            var idAttribute = factory.CreatePrimaryKeyAttribute(nodeCount++, "ID");
-            idAttribute.X = 450;
-            idAttribute.Y = 50;
-
-            var nameAttribute = factory.CreateAttribute(nodeCount++, "Name");
-            nameAttribute.X = 550;
-            nameAttribute.Y = 50;
-
-            var project = factory.CreateSmallEntity(nodeCount++, "Project");
-            project.X = 800;
-            project.Y = 0;
-            var projectCodeAttribute = factory.CreateAttribute(nodeCount++, "ProjectCode");
-            projectCodeAttribute.X = 800;
-            projectCodeAttribute.Y = 50;
-
-            var managesRelation = factory.CreateRelationship(nodeCount, "manages");
-            managesRelation.X = 650;
+            var project = factory.CreateSmallEntity(nodeCount++, "Project").SetLocation(800,0);
+            var projectCodeAttribute = factory.CreateAttribute(nodeCount++, "ProjectCode").SetLocation(790,50).SetSize(100,30);
+            var managesRelation = factory.CreateRelationship(nodeCount, "manages").SetLocation(650,0);
 
             graph.AddNodes(employee, idAttribute, nameAttribute, project, projectCodeAttribute, managesRelation);
 
