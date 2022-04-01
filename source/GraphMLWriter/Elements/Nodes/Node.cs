@@ -38,12 +38,7 @@ namespace GraphMLWriter.Elements.Nodes
         {
             Text = text;
         }
-
-        public void SetColor(Color color)
-        {
-            Color = color.ToHexCode();
-        }
-        
+       
         public void FitText()
         {
             using var bitmap = new Bitmap(1, 1);

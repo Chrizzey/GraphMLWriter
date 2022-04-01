@@ -11,7 +11,5 @@ namespace GraphMLWriter.Contracts
         INodeLabel NodeLabel { get; set; }
 
         void FitText();
-
-        void SetColor(Color color);
     }
 }

@@ -33,7 +33,7 @@ namespace ConsoleApp1
                 Width = 100
             };
             n3.SetColor(Color.Green);
-            
+
             var graph = new Graph();
             graph.AddNodes(n1, n2, n3);
 
@@ -47,28 +47,25 @@ namespace ConsoleApp1
                             && x.GetParameters()[1].ParameterType == typeof(string))
                 .Select(x =>
                 {
-                    var node = (INode) x.Invoke(new FlowChartNodeFactory(), new object[] {nodeNumber++, x.Name});
+                    var node = (INode)x.Invoke(new FlowChartNodeFactory(), new object[] { nodeNumber++, x.Name });
                     if (node is null)
                         throw new NotSupportedException(x.Name);
-                    node.Y = y;
-                    if (nodeNumber % 3 == 1)
-                        y += 100;
 
                     switch (nodeNumber % 3)
                     {
                         case 0:
-                            node.X = 100;
-                            node.SetColor(Color.Orange);
+                            node.SetLocation(100, y).SetColor(Color.Orange);
                             break;
                         case 1:
-                            node.X = 250;
-                            node.SetColor(Color.Aqua);
+                            node.SetLocation(250,y).SetColor(Color.Aqua);
                             break;
                         case 2:
-                            node.X = 400;
-                            node.SetColor(Color.Sienna);
+                            node.SetLocation(400,y).SetColor(Color.Sienna);
                             break;
                     }
+
+                    if (nodeNumber % 3 == 1)
+                        y += 100;
 
                     return node;
                 });
@@ -85,25 +82,24 @@ namespace ConsoleApp1
                     var node = (INode)x.Invoke(new ShapeNodeFactory(), new object[] { nodeNumber++, x.Name });
                     if (node is null)
                         throw new NotSupportedException(x.Name);
-                    node.Y = y;
-                    if (nodeNumber % 3 == 1)
-                        y += 100;
+
 
                     switch (nodeNumber % 3)
                     {
                         case 0:
-                            node.X = 100;
-                            node.SetColor(Color.Chartreuse);
+                            node.SetLocation(100, y).SetColor(Color.Chartreuse);
                             break;
                         case 1:
-                            node.X = 250;
-                            node.SetColor(Color.MediumTurquoise);
+                            node.SetLocation(250, y).SetColor(Color.MediumTurquoise);
                             break;
                         case 2:
-                            node.X = 400;
-                            node.SetColor(Color.MediumPurple);
+                            node.SetLocation(400, y).SetColor(Color.MediumPurple);
                             break;
                     }
+
+                    if (nodeNumber % 3 == 1)
+                        y += 100;
+
 
                     return node;
                 });
@@ -130,19 +126,19 @@ namespace ConsoleApp1
             var nodeCount = graph.AllNodes.Count;
             var factory = new EntityRelationshipNodeFactory();
 
-            var employee = factory.CreateSmallEntity(nodeCount++, "Employee").SetLocation(500,0);
-            var idAttribute = factory.CreatePrimaryKeyAttribute(nodeCount++, "ID").SetLocation(450,50);
-            var nameAttribute = factory.CreateAttribute(nodeCount++, "Name").SetLocation(550,50);
+            var employee = factory.CreateSmallEntity(nodeCount++, "Employee").SetLocation(500, 0);
+            var idAttribute = factory.CreatePrimaryKeyAttribute(nodeCount++, "ID").SetLocation(450, 50);
+            var nameAttribute = factory.CreateAttribute(nodeCount++, "Name").SetLocation(550, 50);
 
-            var project = factory.CreateSmallEntity(nodeCount++, "Project").SetLocation(800,0);
-            var projectCodeAttribute = factory.CreateAttribute(nodeCount++, "ProjectCode").SetLocation(790,50).SetSize(100,30);
-            var managesRelation = factory.CreateRelationship(nodeCount, "manages").SetLocation(650,0);
+            var project = factory.CreateSmallEntity(nodeCount++, "Project").SetLocation(800, 0);
+            var projectCodeAttribute = factory.CreateAttribute(nodeCount++, "ProjectCode").SetLocation(790, 50).SetSize(100, 30);
+            var managesRelation = factory.CreateRelationship(nodeCount, "manages").SetLocation(650, 0);
 
             graph.AddNodes(employee, idAttribute, nameAttribute, project, projectCodeAttribute, managesRelation);
 
             var edgeCount = graph.AllEdges.Count;
             graph.AddEdges(
-                new Edge(edgeCount++, employee, idAttribute){ TargetArrow = EdgeArrow.None},
+                new Edge(edgeCount++, employee, idAttribute) { TargetArrow = EdgeArrow.None },
                 new Edge(edgeCount++, employee, nameAttribute) { TargetArrow = EdgeArrow.None },
                 new Edge(edgeCount++, project, projectCodeAttribute) { TargetArrow = EdgeArrow.None },
                 new Edge(edgeCount++, employee, managesRelation) { TargetArrow = EdgeArrow.None },

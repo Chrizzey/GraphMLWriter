@@ -1,4 +1,7 @@
-﻿using GraphMLWriter.Contracts;
+﻿using System;
+using System.Drawing;
+using GraphMLWriter.Contracts;
+using GraphMLWriter.Elements.Nodes;
 
 namespace GraphMLWriter.Elements
 {
@@ -16,6 +19,13 @@ namespace GraphMLWriter.Elements
         {
             node.Width = width;
             node.Height = height;
+
+            return node;
+        }
+
+        public static T SetColor<T>(this T node, Color color) where T : INode
+        {
+            node.Color = color.ToHexCode();
 
             return node;
         }
