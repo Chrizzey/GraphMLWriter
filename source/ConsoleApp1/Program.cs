@@ -9,7 +9,6 @@ using GraphMLWriter.Elements.NodeFactories;
 using GraphMLWriter.Elements.Nodes;
 using GraphMLWriter.Elements.Shapes;
 using GraphMLWriter.Serializer;
-using GraphMLWriter.Serializer.ElementSerializer;
 
 namespace ConsoleApp1
 {
@@ -120,8 +119,49 @@ namespace ConsoleApp1
                 TargetArrow = EdgeArrow.Diamond,
             });
 
+            BuildSampleErDiagram(graph);
+
             var serializer = new GraphSerializer();
             serializer.Serialize(graph, @"E:\test.graphml");
+        }
+
+        private static void BuildSampleErDiagram(Graph graph)
+        {
+            var nodeCount = graph.AllNodes.Count;
+            var factory = new EntityRelationshipNodeFactory();
+
+            var employee = factory.CreateSmallEntity(nodeCount++, "Employee");
+            employee.X = 500;
+            employee.Y = 0;
+
+            var idAttribute = factory.CreatePrimaryKeyAttribute(nodeCount++, "ID");
+            idAttribute.X = 450;
+            idAttribute.Y = 50;
+
+            var nameAttribute = factory.CreateAttribute(nodeCount++, "Name");
+            nameAttribute.X = 550;
+            nameAttribute.Y = 50;
+
+            var project = factory.CreateSmallEntity(nodeCount++, "Project");
+            project.X = 800;
+            project.Y = 0;
+            var projectCodeAttribute = factory.CreateAttribute(nodeCount++, "ProjectCode");
+            projectCodeAttribute.X = 800;
+            projectCodeAttribute.Y = 50;
+
+            var managesRelation = factory.CreateRelationship(nodeCount, "manages");
+            managesRelation.X = 650;
+
+            graph.AddNodes(employee, idAttribute, nameAttribute, project, projectCodeAttribute, managesRelation);
+
+            var edgeCount = graph.AllEdges.Count;
+            graph.AddEdges(
+                new Edge(edgeCount++, employee, idAttribute){ TargetArrow = EdgeArrow.None},
+                new Edge(edgeCount++, employee, nameAttribute) { TargetArrow = EdgeArrow.None },
+                new Edge(edgeCount++, project, projectCodeAttribute) { TargetArrow = EdgeArrow.None },
+                new Edge(edgeCount++, employee, managesRelation) { TargetArrow = EdgeArrow.None },
+                new Edge(edgeCount, project, managesRelation) { TargetArrow = EdgeArrow.None }
+            );
         }
     }
 }

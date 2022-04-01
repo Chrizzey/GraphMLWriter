@@ -44,6 +44,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
                 new XAttribute("modelName", "custom"),
                 new XAttribute("textColor", label.TextColor),
                 new XAttribute("visible", label.IsVisible),
+                new XAttribute("underlinedText", label.UnderlineText),
                 new XAttribute("width", "38.68994140625"),
                 new XAttribute("x", "30.655029296875"),
                 new XAttribute("y", "3.0"));
