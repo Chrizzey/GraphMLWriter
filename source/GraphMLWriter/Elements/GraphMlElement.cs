@@ -1,6 +1,8 @@
-﻿namespace GraphMLWriter.Elements
+﻿using GraphMLWriter.Contracts;
+
+namespace GraphMLWriter.Elements
 {
-    public abstract class GraphMlElement
+    public abstract class GraphMlElement : IGraphMlElement
     {
         public virtual string Id { get; }
 

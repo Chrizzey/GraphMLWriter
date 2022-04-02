@@ -20,7 +20,11 @@ namespace GraphMLWriter.Elements
 
         public IReadOnlyCollection<INode> AllNodes => new ReadOnlyCollection<INode>(_nodes);
 
+        public int NodeCount => _nodes.Count;
+
         public IReadOnlyCollection<Edge> AllEdges => new ReadOnlyCollection<Edge>(_edges);
+
+        public int EdgeCount => _edges.Count;
 
         public void AddNodes(params INode[] nodes)
         {
@@ -48,9 +52,9 @@ namespace GraphMLWriter.Elements
             }
         }
 
-        public void AddNode(INode node)
+        public void AddNode(INode node, bool allowDuplicates = false)
         {
-            if (NodeExists(node))
+            if (!allowDuplicates && NodeExists(node))
                 throw new DuplicateNodeException();
 
             _nodes.Add(node);
@@ -81,6 +85,12 @@ namespace GraphMLWriter.Elements
                 node.FitText();
             }
         }
+
+        public string GetNextNodeId() => $"n{GetBiggestIdNumber(_nodes) + 1}";
+
+        public string GetNextEdgeId() => $"e{GetBiggestIdNumber(_edges) + 1}";
+
+        private static int GetBiggestIdNumber(IEnumerable<IGraphMlElement> elements) => elements.Select(x => x.Id.Substring(1)).Select(int.Parse).Max();
     }
 
     public class DuplicateEdgeException : Exception

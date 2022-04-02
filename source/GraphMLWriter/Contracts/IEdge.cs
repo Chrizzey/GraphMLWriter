@@ -4,10 +4,8 @@ using GraphMLWriter.Elements.Shapes;
 
 namespace GraphMLWriter.Contracts
 {
-    public interface IEdge : ISourcePoint, ITargetPoint
+    public interface IEdge : IGraphMlElement, ISourcePoint, ITargetPoint
     {
-        string Id { get; }
-
         string Source { get; set; }
 
         string Target { get; set; }

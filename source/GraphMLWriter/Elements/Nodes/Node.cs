@@ -20,6 +20,8 @@ namespace GraphMLWriter.Elements.Nodes
 
         public Border Border { get; set; }
         
+        public INodeLabel NodeLabel { get; set; }
+
         public Node(int nodeNumber) 
             : base("n"+nodeNumber)
         {
@@ -43,13 +45,12 @@ namespace GraphMLWriter.Elements.Nodes
         {
             using var bitmap = new Bitmap(1, 1);
             using var g = Graphics.FromImage(bitmap);
-            var font = new Font("Arial", 15f, FontStyle.Bold);
+            var font = new Font(NodeLabel.FontFamily, NodeLabel.FontSize, FontStyle.Bold);
             var size = g.MeasureString(Text, font);
 
             Width = size.Width + 4f;
             Height = size.Height + 4f;
         }
 
-        public INodeLabel NodeLabel { get; set; }
     }
 }
