@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GraphMLWriter.Elements.Nodes
+﻿namespace GraphMLWriter.Elements.Nodes
 {
     public class UmlClassNode : Node
     {
@@ -29,16 +25,5 @@ namespace GraphMLWriter.Elements.Nodes
         public string AttributeText { get; set; }
 
         public string MethodText { get; set; }
-    }
-
-    public class UmlNoteNode : Node
-    {
-        public UmlNoteNode(int nodeNumber) : base(nodeNumber)
-        {
-        }
-
-        public UmlNoteNode(string text, int nodeNumber) : base(text, nodeNumber)
-        {
-        }
     }
 }

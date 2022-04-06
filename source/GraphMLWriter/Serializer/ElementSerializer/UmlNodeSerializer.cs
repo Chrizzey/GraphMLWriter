@@ -72,7 +72,7 @@ namespace GraphMLWriter.Serializer.ElementSerializer
                 new XAttribute("use3DEffect", classNode.Use3dEffect)
             );
             uml.Add(new XElement(YNamespace+ "AttributeLabel", CreateXmlSpacePreserveAttribute(), classNode.AttributeText));
-            //uml.Add(new XElement(YNamespace+ "MethodLabel"), CreateXmlSpacePreserveAttribute(), classNode.MethodText);
+            uml.Add(new XElement(YNamespace+ "MethodLabel", CreateXmlSpacePreserveAttribute(), classNode.MethodText));
             
             xmlClassElement.Add(uml);
 
