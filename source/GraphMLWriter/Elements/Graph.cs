@@ -88,7 +88,7 @@ namespace GraphMLWriter.Elements
 
         public string GetNextNodeId() => $"n{GetBiggestIdNumber(_nodes) + 1}";
 
-        public string GetNextEdgeId() => $"e{GetBiggestIdNumber(_edges) + 1}";
+        public int GetNextEdgeId() => GetBiggestIdNumber(_edges) + 1;
 
         private static int GetBiggestIdNumber(IEnumerable<IGraphMlElement> elements) => elements.Select(x => x.Id.Substring(1)).Select(int.Parse).Max();
     }

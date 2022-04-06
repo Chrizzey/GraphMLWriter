@@ -10,6 +10,7 @@ namespace GraphMLWriter.Contracts
     public interface INode : IGraphMlElement, IShape
     {
         string Text { get; set; }
+
         INodeLabel NodeLabel { get; set; }
 
         void FitText();

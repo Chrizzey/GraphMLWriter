@@ -18,7 +18,7 @@ namespace GraphMLWriter.Serializer
         {
             _graph = new XDocument();
             _edgeSerializer = new EdgeSerializer();
-            _nodeSerializerProvider = new NodeSerializerProvider(new GenericNodeSerializer(), new UmlNodeSerializer(), new ShapeNodeSerializer());
+            _nodeSerializerProvider = new NodeSerializerProvider(new GenericNodeSerializer(), new UmlNodeSerializer(new ShapeNodeSerializer()), new ShapeNodeSerializer());
             InitializeGraph();
         }
 

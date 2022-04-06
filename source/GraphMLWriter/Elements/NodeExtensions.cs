@@ -4,7 +4,7 @@ using GraphMLWriter.Elements.Nodes;
 
 namespace GraphMLWriter.Elements
 {
-    public static class NodeExtension
+    public static class NodeExtensions
     {
         public static T SetLocation<T>(this T node, int x, int y) where T : INode
         {

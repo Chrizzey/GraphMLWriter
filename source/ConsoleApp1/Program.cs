@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Reflection;
 using GraphMLWriter.Contracts;
@@ -116,6 +118,7 @@ namespace ConsoleApp1
             });
 
             BuildSampleErDiagram(graph);
+            BuildExampleUmlClassDiagram(graph);
 
             var serializer = new GraphSerializer();
             serializer.Serialize(graph, @"E:\test.graphml");
@@ -144,6 +147,33 @@ namespace ConsoleApp1
                 new Edge(edgeCount++, employee, managesRelation) { TargetArrow = EdgeArrow.None },
                 new Edge(edgeCount, project, managesRelation) { TargetArrow = EdgeArrow.None }
             );
+        }
+
+        private static void BuildExampleUmlClassDiagram(Graph graph)
+        {
+            var factory = new UmlNodeFactory();
+            var nodeCount = graph.AllNodes.Count;
+            var foo = factory.CreateClass(nodeCount++, "Foo");
+            foo.AttributeText = "- bar: int\r\n- fooBar: double";
+            foo.MethodText = "+ Foo()\r\n+ GetFooBar(): double\r\n+ SetBar(value: int): void";
+            graph.AddNode(foo);
+
+            var objectNode = factory.CreateClass(nodeCount, "Object");
+
+            var methods = new List<string>();
+            foreach (var method in typeof(object).GetMethods())
+            {
+                var parameters = method.GetParameters().Select(x => $"{x.Name}: {x.ParameterType.Name}");
+                methods.Add($"+ {method.Name}({string.Join(", ", parameters)}): {method.ReturnType.Name}");
+            }
+            objectNode.MethodText = string.Join(Environment.NewLine, methods);
+
+            graph.AddNode(objectNode);
+
+            graph.AddEdge(new Edge(graph.GetNextEdgeId(), foo, objectNode)
+            {
+                TargetArrow = EdgeArrow.WhiteDelta
+            });
         }
     }
 }
